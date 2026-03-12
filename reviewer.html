@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discrete Math Reviewer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --panel: #16161f;
+    --border: #2a2a3a;
+    --accent: #00e5ff;
+    --accent2: #ff4d6d;
+    --accent3: #b8ff65;
+    --accent4: #ffbe00;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(0,229,255,0.05);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    padding: 140px 40px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin-bottom: 30px;
+  }
+
+  h1 span.hl { color: var(--accent); }
+  h1 span.hl2 { color: var(--accent2); }
+
+  .hero-desc {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 500px;
+    line-height: 1.8;
+  }
+
+  .topic-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 40px;
+  }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 2px;
+    border: 1px solid;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .pill-1 { color: var(--accent); border-color: var(--accent); }
+  .pill-1:hover { background: var(--accent); color: var(--bg); }
+  .pill-2 { color: var(--accent2); border-color: var(--accent2); }
+  .pill-2:hover { background: var(--accent2); color: var(--bg); }
+  .pill-3 { color: var(--accent3); border-color: var(--accent3); }
+  .pill-3:hover { background: var(--accent3); color: var(--bg); }
+  .pill-4 { color: var(--accent4); border-color: var(--accent4); }
+  .pill-4:hover { background: var(--accent4); color: var(--bg); }
+  .pill-5 { color: #c084fc; border-color: #c084fc; }
+  .pill-5:hover { background: #c084fc; color: var(--bg); }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  /* SECTION */
+  .section {
+    scroll-margin-top: 80px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-left: auto;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--muted); }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .card p {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  /* OPERATOR GRID */
+  .op-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .op-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    transition: all 0.2s;
+  }
+
+  .op-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 30px rgba(0,229,255,0.08);
+  }
+
+  .op-symbol {
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .op-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .op-desc {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .op-read {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    color: var(--text);
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  /* TRUTH TABLE */
+  .tt-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  thead tr {
+    background: rgba(0,229,255,0.08);
+  }
+
+  th {
+    padding: 12px 16px;
+    text-align: center;
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 10px 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(42,42,58,0.5);
+    color: var(--muted);
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  td.t { color: var(--accent3); font-weight: 700; }
+  td.f { color: var(--accent2); font-weight: 700; }
+  td.result { color: var(--accent4); font-weight: 700; }
+
+  tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+
+  /* CODE / FORMULA BLOCKS */
+  .formula {
+    background: #0d0d15;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    padding: 16px 20px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--accent);
+    margin: 12px 0;
+    letter-spacing: 0.05em;
+    overflow-x: auto;
+  }
+
+  .formula.red { border-left-color: var(--accent2); color: var(--accent2); }
+  .formula.green { border-left-color: var(--accent3); color: var(--accent3); }
+  .formula.yellow { border-left-color: var(--accent4); color: var(--accent4); }
+  .formula.purple { border-left-color: #c084fc; color: #c084fc; }
+
+  /* EXAMPLE BLOCKS */
+  .example {
+    background: rgba(0,229,255,0.04);
+    border: 1px solid rgba(0,229,255,0.15);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .example-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .example p {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .example.red { background: rgba(255,77,109,0.04); border-color: rgba(255,77,109,0.15); }
+  .example.red .example-label { color: var(--accent2); }
+  .example.green { background: rgba(184,255,101,0.04); border-color: rgba(184,255,101,0.15); }
+  .example.green .example-label { color: var(--accent3); }
+  .example.yellow { background: rgba(255,190,0,0.04); border-color: rgba(255,190,0,0.15); }
+  .example.yellow .example-label { color: var(--accent4); }
+  .example.purple { background: rgba(192,132,252,0.04); border-color: rgba(192,132,252,0.15); }
+  .example.purple .example-label { color: #c084fc; }
+
+  /* BIT OPS TABLE */
+  .bit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .bit-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  .bit-op {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent4);
+    margin-bottom: 8px;
+  }
+
+  /* EQUIVALENCE TABLE */
+  .equiv-group {
+    margin-bottom: 28px;
+  }
+
+  .equiv-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .equiv-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .equiv-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .equiv-row .law-name {
+    color: var(--muted);
+    font-size: 11px;
+    min-width: 130px;
+  }
+
+  .equiv-row .law-formula {
+    color: var(--text);
+    flex: 1;
+  }
+
+  /* PROPOSITIONAL */
+  .prop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .prop-grid { grid-template-columns: 1fr; }
+    nav { padding: 12px 20px; }
+    .nav-links a { font-size: 10px; padding: 4px 8px; }
+    .hero { padding: 120px 20px 60px; }
+    main { padding: 0 20px 80px; }
+    h1 { font-size: 40px; }
+  }
+
+  /* INTERACTIVE TRUTH TABLE */
+  .tt-builder {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    margin-top: 24px;
+  }
+
+  .tt-builder h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .tt-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .tt-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .tt-btn:hover, .tt-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0,229,255,0.06);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* SCROLL FADE IN */
+  .section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .badge-blue { background: rgba(0,229,255,0.15); color: var(--accent); }
+  .badge-red { background: rgba(255,77,109,0.15); color: var(--accent2); }
+  .badge-green { background: rgba(184,255,101,0.15); color: var(--accent3); }
+
+  strong { color: var(--text); font-weight: 700; }
+  em { color: var(--accent4); font-style: normal; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">// DISMATH REVIEWER</div>
+  <div class="nav-links">
+    <a href="#operators">Operators</a>
+    <a href="#equivalences">Equivalences</a>
+    <a href="#bitops">Bit Ops</a>
+    <a href="#proplogic">Prop Logic</a>
+    <a href="#truthtable">Truth Tables</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag">Discrete Mathematics</div>
+  <h1>Logic &<br><span class="hl">Discrete</span><br><span class="hl2">Math</span></h1>
+  <p class="hero-desc">Comprehensive reviewer covering logical operators, equivalences, bit operations, propositional logic, and truth tables.</p>
+  <div class="topic-pills">
+    <a href="#operators" class="pill pill-1">01 · Logical Operators</a>
+    <a href="#equivalences" class="pill pill-2">02 · Logical Equivalences</a>
+    <a href="#bitops" class="pill pill-3">03 · Bit Operations</a>
+    <a href="#proplogic" class="pill pill-4">04 · Propositional Logic</a>
+    <a href="#truthtable" class="pill pill-5">05 · Truth Tables</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- ===== 01: LOGICAL OPERATORS ===== -->
+  <section class="section" id="operators">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 style="color: var(--accent);">Logical Operators</h2>
+      <span class="section-tag badge-blue badge">FUNDAMENTALS</span>
+    </div>
+
+    <div class="card">
+      <p class="card-label" style="color: var(--accent);">What are they?</p>
+      <p>Logical operators (also called <strong>connectives</strong>) are symbols that connect or modify propositions to form compound statements. They are the building blocks of all logic.</p>
+    </div>
+
+    <div class="op-grid">
+
+      <div class="op-card">
+        <span class="op-symbol" style="color:#ff4d6d;">¬</span>
+        <div class="op-name">Negation (NOT)</div>
+        <div class="op-desc">Flips the truth value of a proposition. If p is true, ¬p is false, and vice versa.</div>
+        <span class="op-read">"NOT p"</span>
+        <div class="formula red">¬T = F &nbsp;|&nbsp; ¬F = T</div>
+        <div class="example red">
+          <div class="example-label">Example</div>
+          <p>p = "It is raining."<br>¬p = "It is <strong>not</strong> raining."</p>
+        </div>
+      </div>
+
+      <div class="op-card">
+        <span class="op-symbol" style="color:#00e5ff;">∧</span>
+        <div class="op-name">Conjunction (AND)</div>
+        <div class="op-desc">True ONLY when BOTH propositions are true. Any false input makes the whole thing false.</div>
+        <span class="op-read">"p AND q"</span>
+        <div class="formula">T ∧ T = T &nbsp;|&nbsp; T ∧ F = F</div>
+        <div class="example">
+          <div class="example-label">Example</div>
+          <p>p = "I studied." &nbsp; q = "I slept."<br>p ∧ q = "I studied <strong>and</strong> I slept." (Both must be true)</p>
+        </div>
+      </div>
+
+      <div class="op-card">
+        <span class="op-symbol" style="color:#b8ff65;">∨</span>
+        <div class="op-name">Disjunction (OR)</div>
+        <div class="op-desc">True when AT LEAST ONE proposition is true. Only false when both are false. This is <em>inclusive</em> OR.</div>
+        <span class="op-read">"p OR q"</span>
+        <div class="formula green">F ∨ F = F &nbsp;|&nbsp; T ∨ F = T</div>
+        <div class="example green">
+          <div class="example-label">Example</div>
+          <p>p = "I'll eat rice." &nbsp; q = "I'll eat bread."<br>p ∨ q = "I'll eat rice <strong>or</strong> bread (or both)."</p>
+        </div>
+      </div>
+
+      <div class="op-card">
+        <span class="op-symbol" style="color:#ffbe00;">⊕</span>
+        <div class="op-name">Exclusive OR (XOR)</div>
+        <div class="op-desc">True when exactly ONE of the two propositions is true — NOT both. Used a lot in circuits and cryptography.</div>
+        <span class="op-read">"p XOR q"</span>
+        <div class="formula yellow">T ⊕ T = F &nbsp;|&nbsp; T ⊕ F = T</div>
+        <div class="example yellow">
+          <div class="example-label">Example</div>
+          <p>p = "Door opens in." &nbsp; q = "Door opens out."<br>p ⊕ q = True (it can only do one, not both)</p>
+        </div>
+      </div>
+
+      <div class="op-card">
+        <span class="op-symbol" style="color:#c084fc;">→</span>
+        <div class="op-name">Implication (IF-THEN)</div>
+        <div class="op-desc">False ONLY when the hypothesis (p) is true but the conclusion (q) is false. "If p, then q." A false premise makes the whole thing vacuously true.</div>
+        <span class="op-read">"p implies q" / "if p then q"</span>
+        <div class="formula purple">F → anything = T &nbsp;|&nbsp; T → F = F</div>
+        <div class="example purple">
+          <div class="example-label">Example</div>
+          <p>p = "I pass the exam." &nbsp; q = "I celebrate."<br>p → q: Only false if I pass but <strong>don't</strong> celebrate.</p>
+        </div>
+      </div>
+
+      <div class="op-card">
+        <span class="op-symbol" style="color:#fb923c;">↔</span>
+        <div class="op-name">Biconditional (IFF)</div>
+        <div class="op-desc">True when BOTH propositions have the same truth value. "p if and only if q." Both true or both false = True.</div>
+        <span class="op-read">"p if and only if q"</span>
+        <div class="formula" style="border-left-color:#fb923c;color:#fb923c;">T ↔ T = T &nbsp;|&nbsp; T ↔ F = F</div>
+        <div class="example" style="border-color:rgba(251,146,60,0.2);background:rgba(251,146,60,0.04);">
+          <div class="example-label" style="color:#fb923c;">Example</div>
+          <p>p = "I study." &nbsp; q = "I pass."<br>p ↔ q: "I study <strong>if and only if</strong> I pass."<br>True when both study+pass, or both not-study+not-pass.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Priority -->
+    <div class="card" style="margin-top:8px;">
+      <p class="card-label" style="color:var(--accent4);">Operator Precedence (Highest → Lowest)</p>
+      <div class="formula yellow">¬  &gt;  ∧  &gt;  ∨  &gt;  →  &gt;  ↔</div>
+      <p>Just like PEMDAS — evaluate in this order when no parentheses are given. ¬ binds tightest.</p>
+    </div>
+  </section>
+
+  <!-- ===== 02: LOGICAL EQUIVALENCES ===== -->
+  <section class="section" id="equivalences">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 style="color:var(--accent2);">Logical Equivalences</h2>
+      <span class="section-tag badge-red badge">LAWS</span>
+    </div>
+
+    <div class="card">
+      <p class="card-label" style="color:var(--accent2);">What is it?</p>
+      <p>Two propositions are <strong>logically equivalent</strong> (written p ≡ q) if they have the same truth value in every possible scenario — their truth tables are identical. Equivalences let you simplify and transform logical expressions.</p>
+    </div>
+
+    <div class="example red">
+      <div class="example-label">Key Symbol</div>
+      <p>p ≡ q means: "p and q are always equal in truth value."<br>Different from ↔ (biconditional is a connective; ≡ is a <strong>relation</strong> between formulas).</p>
+    </div>
+
+    <!-- Laws grouped -->
+    <div class="equiv-group">
+      <div class="equiv-title">Identity Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Identity (AND)</span><span class="law-formula">p ∧ T ≡ p</span></div>
+        <div class="equiv-row"><span class="law-name">Identity (OR)</span><span class="law-formula">p ∨ F ≡ p</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Domination Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Domination (OR)</span><span class="law-formula">p ∨ T ≡ T</span></div>
+        <div class="equiv-row"><span class="law-name">Domination (AND)</span><span class="law-formula">p ∧ F ≡ F</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Idempotent Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Idempotent (OR)</span><span class="law-formula">p ∨ p ≡ p</span></div>
+        <div class="equiv-row"><span class="law-name">Idempotent (AND)</span><span class="law-formula">p ∧ p ≡ p</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Double Negation</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Double Negation</span><span class="law-formula">¬(¬p) ≡ p</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">De Morgan's Laws <span class="badge badge-red">IMPORTANT</span></div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">De Morgan 1</span><span class="law-formula">¬(p ∧ q) ≡ ¬p ∨ ¬q</span></div>
+        <div class="equiv-row"><span class="law-name">De Morgan 2</span><span class="law-formula">¬(p ∨ q) ≡ ¬p ∧ ¬q</span></div>
+      </div>
+    </div>
+
+    <div class="example red">
+      <div class="example-label">De Morgan's Example</div>
+      <p>"It is NOT the case that (I'm hungry AND tired)"<br>≡ "I'm NOT hungry OR I'm NOT tired"<br><br>¬(H ∧ T) ≡ ¬H ∨ ¬T</p>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Commutative Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Commutative (OR)</span><span class="law-formula">p ∨ q ≡ q ∨ p</span></div>
+        <div class="equiv-row"><span class="law-name">Commutative (AND)</span><span class="law-formula">p ∧ q ≡ q ∧ p</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Associative Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Associative (OR)</span><span class="law-formula">(p ∨ q) ∨ r ≡ p ∨ (q ∨ r)</span></div>
+        <div class="equiv-row"><span class="law-name">Associative (AND)</span><span class="law-formula">(p ∧ q) ∧ r ≡ p ∧ (q ∧ r)</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Distributive Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Distributive (AND over OR)</span><span class="law-formula">p ∧ (q ∨ r) ≡ (p ∧ q) ∨ (p ∧ r)</span></div>
+        <div class="equiv-row"><span class="law-name">Distributive (OR over AND)</span><span class="law-formula">p ∨ (q ∧ r) ≡ (p ∨ q) ∧ (p ∨ r)</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Absorption Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Absorption (OR)</span><span class="law-formula">p ∨ (p ∧ q) ≡ p</span></div>
+        <div class="equiv-row"><span class="law-name">Absorption (AND)</span><span class="law-formula">p ∧ (p ∨ q) ≡ p</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Negation Laws</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Negation (OR)</span><span class="law-formula">p ∨ ¬p ≡ T &nbsp;(Tautology)</span></div>
+        <div class="equiv-row"><span class="law-name">Negation (AND)</span><span class="law-formula">p ∧ ¬p ≡ F &nbsp;(Contradiction)</span></div>
+      </div>
+    </div>
+
+    <div class="equiv-group">
+      <div class="equiv-title">Implication Equivalences</div>
+      <div class="equiv-list">
+        <div class="equiv-row"><span class="law-name">Implication</span><span class="law-formula">p → q ≡ ¬p ∨ q</span></div>
+        <div class="equiv-row"><span class="law-name">Contrapositive</span><span class="law-formula">p → q ≡ ¬q → ¬p</span></div>
+        <div class="equiv-row"><span class="law-name">Biconditional</span><span class="law-formula">p ↔ q ≡ (p → q) ∧ (q → p)</span></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== 03: BIT OPERATIONS ===== -->
+  <section class="section" id="bitops">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 style="color:var(--accent3);">Logic & Bit Operations</h2>
+      <span class="section-tag badge-green badge">APPLIED</span>
+    </div>
+
+    <div class="card">
+      <p class="card-label" style="color:var(--accent3);">What are they?</p>
+      <p>Bit operations apply logical operators directly to binary digits (bits): 0 = False, 1 = True. Computers literally use these to process everything. Every value in memory is bits, and operations on them are just logic.</p>
+    </div>
+
+    <div class="bit-grid">
+      <div class="bit-card">
+        <div class="bit-op">AND ( & )</div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Both bits must be 1. Used to <strong>mask</strong> bits — isolate specific bits.</p>
+        <div class="formula yellow">1010<br>AND 1100<br>———<br>1000</div>
+      </div>
+      <div class="bit-card">
+        <div class="bit-op" style="color:var(--accent);">OR ( | )</div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;">At least one bit must be 1. Used to <strong>set</strong> bits.</p>
+        <div class="formula">1010<br>OR  1100<br>———<br>1110</div>
+      </div>
+      <div class="bit-card">
+        <div class="bit-op" style="color:var(--accent2);">XOR ( ^ )</div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Exactly one bit is 1. Used to <strong>toggle</strong> bits and simple encryption.</p>
+        <div class="formula red">1010<br>XOR 1100<br>———<br>0110</div>
+      </div>
+      <div class="bit-card">
+        <div class="bit-op" style="color:#c084fc;">NOT ( ~ )</div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;">Flips every bit. 0→1, 1→0. Also called bitwise complement.</p>
+        <div class="formula purple">NOT 1010<br>———<br>&nbsp;&nbsp;&nbsp;&nbsp;0101</div>
+      </div>
+    </div>
+
+    <!-- Bit strings -->
+    <div class="card" style="margin-top:16px;">
+      <p class="card-label" style="color:var(--accent3);">Bit Strings</p>
+      <p>A <strong>bit string</strong> is a sequence of bits. Operations are applied <em>bitwise</em> — position by position.</p>
+    </div>
+
+    <div class="example green">
+      <div class="example-label">Example — Bit String Operations</div>
+      <p>
+        A = <strong>0110 1010</strong> &nbsp; B = <strong>1011 0101</strong><br><br>
+        A AND B = 0010 0000<br>
+        A OR B &nbsp;= 1111 1111<br>
+        A XOR B = 1101 1111<br>
+        NOT A &nbsp;&nbsp;= 1001 0101
+      </p>
+    </div>
+
+    <div class="card">
+      <p class="card-label" style="color:var(--accent3);">Real-World Use</p>
+      <p style="margin-bottom:8px;"><strong>Masking:</strong> n & 0xFF extracts the lowest 8 bits (used in networking, image processing).</p>
+      <p style="margin-bottom:8px;"><strong>Toggle a flag:</strong> n ^ (1 &lt;&lt; k) flips the k-th bit without touching others.</p>
+      <p><strong>Check if even:</strong> n & 1 == 0 (if last bit is 0, it's even).</p>
+    </div>
+
+    <!-- Logic gates quick ref -->
+    <div class="card">
+      <p class="card-label" style="color:var(--accent3);">Logic Gates Connection</p>
+      <p>Every gate in a digital circuit IS one of these operators:</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;">
+        <span class="badge badge-green" style="font-size:12px;padding:6px 12px;">AND Gate = ∧</span>
+        <span class="badge badge-blue" style="font-size:12px;padding:6px 12px;">OR Gate = ∨</span>
+        <span class="badge badge-red" style="font-size:12px;padding:6px 12px;">NOT Gate = ¬</span>
+        <span style="font-family:var(--mono);font-size:12px;padding:6px 12px;background:rgba(192,132,252,0.15);color:#c084fc;border-radius:2px;">XOR Gate = ⊕</span>
+        <span style="font-family:var(--mono);font-size:12px;padding:6px 12px;background:rgba(255,190,0,0.15);color:var(--accent4);border-radius:2px;">NAND = ¬(∧)</span>
+        <span style="font-family:var(--mono);font-size:12px;padding:6px 12px;background:rgba(255,77,109,0.15);color:var(--accent2);border-radius:2px;">NOR = ¬(∨)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 04: PROPOSITIONAL LOGIC ===== -->
+  <section class="section" id="proplogic">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 style="color:var(--accent4);">Propositional Logic</h2>
+      <span class="section-tag badge" style="background:rgba(255,190,0,0.15);color:var(--accent4);">CORE</span>
+    </div>
+
+    <div class="card">
+      <p class="card-label" style="color:var(--accent4);">What is it?</p>
+      <p>Propositional logic is a formal system for reasoning using <strong>propositions</strong> — statements that are either <em>true</em> or <em>false</em>, never both, never neither. It's the foundation of all mathematical proofs, circuit design, and programming logic.</p>
+    </div>
+
+    <div class="prop-grid">
+      <div class="card">
+        <p class="card-label" style="color:var(--accent3);">Proposition</p>
+        <p>A declarative statement with a definite truth value.</p>
+        <div class="example green" style="margin-top:12px;">
+          <div class="example-label">Valid Propositions</div>
+          <p>"Manila is in the Philippines." → T<br>"2 + 2 = 5" → F<br>"The sky is green." → F</p>
+        </div>
+      </div>
+      <div class="card">
+        <p class="card-label" style="color:var(--accent2);">NOT a Proposition</p>
+        <p>Questions, commands, opinions, or paradoxes.</p>
+        <div class="example red" style="margin-top:12px;">
+          <div class="example-label">Invalid Propositions</div>
+          <p>"What time is it?" → ❌ (question)<br>"Close the door." → ❌ (command)<br>"This statement is false." → ❌ (paradox)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-label" style="color:var(--accent4);">Compound Propositions</p>
+      <p>Formed by combining simple propositions with logical operators. The truth value of a compound proposition depends <em>entirely</em> on the truth values of its parts and the operators used.</p>
+      <div class="formula yellow">p = "It rains." &nbsp; q = "I bring umbrella."<br>Compound: p → q &nbsp; ("If it rains, I bring umbrella.")</div>
+    </div>
+
+    <!-- Tautology / Contradiction / Contingency -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+
+      <div class="card">
+        <p class="card-label" style="color:var(--accent3);">Tautology</p>
+        <p>Always TRUE regardless of variable values.</p>
+        <div class="formula green">p ∨ ¬p &nbsp; (always true)</div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--muted);">Aka: "Law of Excluded Middle"</p>
+      </div>
+
+      <div class="card">
+        <p class="card-label" style="color:var(--accent2);">Contradiction</p>
+        <p>Always FALSE regardless of variable values.</p>
+        <div class="formula red">p ∧ ¬p &nbsp; (always false)</div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--muted);">Aka: "Law of Non-Contradiction"</p>
+      </div>
+
+      <div class="card">
+        <p class="card-label" style="color:var(--accent4);">Contingency</p>
+        <p>Sometimes true, sometimes false — depends on values.</p>
+        <div class="formula yellow">p ∧ q &nbsp; (depends on p and q)</div>
+        <p style="font-family:var(--mono);font-size:12px;color:var(--muted);">Most regular compound propositions.</p>
+      </div>
+
+    </div>
+
+    <!-- Converse / Inverse / Contrapositive -->
+    <div class="card" style="margin-top:8px;">
+      <p class="card-label" style="color:var(--accent4);">Implication Variants <span class="badge badge" style="background:rgba(255,190,0,0.15);color:var(--accent4);">EXAM FAVORITE</span></p>
+      <p style="margin-bottom:16px;">Given: p → q ("If p, then q")</p>
+      <div class="equiv-list">
+        <div class="equiv-row">
+          <span class="law-name">Original</span>
+          <span class="law-formula">p → q</span>
+        </div>
+        <div class="equiv-row">
+          <span class="law-name">Converse</span>
+          <span class="law-formula">q → p &nbsp; <span style="color:var(--muted);font-size:11px;">(swap p and q)</span></span>
+        </div>
+        <div class="equiv-row">
+          <span class="law-name">Inverse</span>
+          <span class="law-formula">¬p → ¬q &nbsp; <span style="color:var(--muted);font-size:11px;">(negate both)</span></span>
+        </div>
+        <div class="equiv-row">
+          <span class="law-name">Contrapositive</span>
+          <span class="law-formula">¬q → ¬p &nbsp; <span style="color:var(--muted);font-size:11px;">(swap AND negate)</span></span>
+        </div>
+      </div>
+
+      <div class="example yellow" style="margin-top:16px;">
+        <div class="example-label">Example</div>
+        <p>
+          Original: "If I study, then I pass." (p → q)<br>
+          Converse: "If I pass, then I studied." (q → p)<br>
+          Inverse: "If I don't study, I don't pass." (¬p → ¬q)<br>
+          Contrapositive: "If I don't pass, I didn't study." (¬q → ¬p)<br><br>
+          <strong>Key fact:</strong> Original ≡ Contrapositive &nbsp; | &nbsp; Converse ≡ Inverse
+        </p>
+      </div>
+    </div>
+
+    <!-- Arguments -->
+    <div class="card">
+      <p class="card-label" style="color:var(--accent4);">Arguments & Validity</p>
+      <p style="margin-bottom:12px;">An <strong>argument</strong> is a sequence of propositions (premises) followed by a conclusion. It's <em>valid</em> if the conclusion MUST be true whenever all premises are true.</p>
+      <div class="formula yellow">Modus Ponens: &nbsp; p, &nbsp; p → q &nbsp; ∴ q</div>
+      <div class="example yellow">
+        <div class="example-label">Modus Ponens Example</div>
+        <p>Premise 1: "It is raining." (p = T)<br>Premise 2: "If it rains, I stay home." (p → q)<br>Conclusion: "I stay home." (q) ✓</p>
+      </div>
+      <div class="formula yellow" style="margin-top:12px;">Modus Tollens: &nbsp; ¬q, &nbsp; p → q &nbsp; ∴ ¬p</div>
+    </div>
+
+  </section>
+
+  <!-- ===== 05: TRUTH TABLES ===== -->
+  <section class="section" id="truthtable">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 style="color:#c084fc;">Truth Tables</h2>
+      <span class="section-tag badge" style="background:rgba(192,132,252,0.15);color:#c084fc;">TOOL</span>
+    </div>
+
+    <div class="card">
+      <p class="card-label" style="color:#c084fc;">What is it?</p>
+      <p>A truth table is a systematic list of ALL possible combinations of truth values for the variables in a proposition, showing the resulting truth value for the whole expression. With n variables, you have <strong>2ⁿ</strong> rows.</p>
+    </div>
+
+    <!-- Basic tables side by side -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;">
+
+      <div>
+        <p style="font-family:var(--mono);font-size:12px;color:#c084fc;letter-spacing:0.1em;margin-bottom:8px;">¬p &nbsp;(NOT)</p>
+        <div class="tt-wrap">
+          <table>
+            <thead><tr><th>p</th><th>¬p</th></tr></thead>
+            <tbody>
+              <tr><td class="t">T</td><td class="f result">F</td></tr>
+              <tr><td class="f">F</td><td class="t result">T</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:var(--mono);font-size:12px;color:#c084fc;letter-spacing:0.1em;margin-bottom:8px;">p ∧ q &nbsp;(AND)</p>
+        <div class="tt-wrap">
+          <table>
+            <thead><tr><th>p</th><th>q</th><th>p ∧ q</th></tr></thead>
+            <tbody>
+              <tr><td class="t">T</td><td class="t">T</td><td class="t result">T</td></tr>
+              <tr><td class="t">T</td><td class="f">F</td><td class="f result">F</td></tr>
+              <tr><td class="f">F</td><td class="t">T</td><td class="f result">F</td></tr>
+              <tr><td class="f">F</td><td class="f">F</td><td class="f result">F</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:var(--mono);font-size:12px;color:#c084fc;letter-spacing:0.1em;margin-bottom:8px;">p ∨ q &nbsp;(OR)</p>
+        <div class="tt-wrap">
+          <table>
+            <thead><tr><th>p</th><th>q</th><th>p ∨ q</th></tr></thead>
+            <tbody>
+              <tr><td class="t">T</td><td class="t">T</td><td class="t result">T</td></tr>
+              <tr><td class="t">T</td><td class="f">F</td><td class="t result">T</td></tr>
+              <tr><td class="f">F</td><td class="t">T</td><td class="t result">T</td></tr>
+              <tr><td class="f">F</td><td class="f">F</td><td class="f result">F</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:var(--mono);font-size:12px;color:#c084fc;letter-spacing:0.1em;margin-bottom:8px;">p ⊕ q &nbsp;(XOR)</p>
+        <div class="tt-wrap">
+          <table>
+            <thead><tr><th>p</th><th>q</th><th>p ⊕ q</th></tr></thead>
+            <tbody>
+              <tr><td class="t">T</td><td class="t">T</td><td class="f result">F</td></tr>
+              <tr><td class="t">T</td><td class="f">F</td><td class="t result">T</td></tr>
+              <tr><td class="f">F</td><td class="t">T</td><td class="t result">T</td></tr>
+              <tr><td class="f">F</td><td class="f">F</td><td class="f result">F</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:var(--mono);font-size:12px;color:#c084fc;letter-spacing:0.1em;margin-bottom:8px;">p → q &nbsp;(Implication)</p>
+        <div class="tt-wrap">
+          <table>
+            <thead><tr><th>p</th><th>q</th><th>p → q</th></tr></thead>
+            <tbody>
+              <tr><td class="t">T</td><td class="t">T</td><td class="t result">T</td></tr>
+              <tr><td class="t">T</td><td class="f">F</td><td class="f result">F</td></tr>
+              <tr><td class="f">F</td><td class="t">T</td><td class="t result">T</td></tr>
+              <tr><td class="f">F</td><td class="f">F</td><td class="t result">T</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:var(--mono);font-size:12px;color:#c084fc;letter-spacing:0.1em;margin-bottom:8px;">p ↔ q &nbsp;(Biconditional)</p>
+        <div class="tt-wrap">
+          <table>
+            <thead><tr><th>p</th><th>q</th><th>p ↔ q</th></tr></thead>
+            <tbody>
+              <tr><td class="t">T</td><td class="t">T</td><td class="t result">T</td></tr>
+              <tr><td class="t">T</td><td class="f">F</td><td class="f result">F</td></tr>
+              <tr><td class="f">F</td><td class="t">T</td><td class="f result">F</td></tr>
+              <tr><td class="f">F</td><td class="f">F</td><td class="t result">T</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Complex example -->
+    <div class="card" style="margin-top:16px;">
+      <p class="card-label" style="color:#c084fc;">How to Build a Truth Table — Step by Step</p>
+      <p style="margin-bottom:12px;">Expression: <strong>(p ∧ q) → ¬r</strong> &nbsp; (3 variables = 2³ = 8 rows)</p>
+      <p style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.8;">
+        Step 1: List all variable combos (p, q, r)<br>
+        Step 2: Compute sub-expressions: p ∧ q, then ¬r<br>
+        Step 3: Combine: (p ∧ q) → ¬r
+      </p>
+    </div>
+
+    <div class="tt-wrap">
+      <table>
+        <thead>
+          <tr><th>p</th><th>q</th><th>r</th><th>p ∧ q</th><th>¬r</th><th>(p ∧ q) → ¬r</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="t">T</td><td class="t">T</td><td class="t">T</td><td class="t">T</td><td class="f">F</td><td class="f result">F</td></tr>
+          <tr><td class="t">T</td><td class="t">T</td><td class="f">F</td><td class="t">T</td><td class="t">T</td><td class="t result">T</td></tr>
+          <tr><td class="t">T</td><td class="f">F</td><td class="t">T</td><td class="f">F</td><td class="f">F</td><td class="t result">T</td></tr>
+          <tr><td class="t">T</td><td class="f">F</td><td class="f">F</td><td class="f">F</td><td class="t">T</td><td class="t result">T</td></tr>
+          <tr><td class="f">F</td><td class="t">T</td><td class="t">T</td><td class="f">F</td><td class="f">F</td><td class="t result">T</td></tr>
+          <tr><td class="f">F</td><td class="t">T</td><td class="f">F</td><td class="f">F</td><td class="t">T</td><td class="t result">T</td></tr>
+          <tr><td class="f">F</td><td class="f">F</td><td class="t">T</td><td class="f">F</td><td class="f">F</td><td class="t result">T</td></tr>
+          <tr><td class="f">F</td><td class="f">F</td><td class="f">F</td><td class="f">F</td><td class="t">T</td><td class="t result">T</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Interactive selector -->
+    <div class="tt-builder">
+      <h3>Quick Reference: Select an operator</h3>
+      <div class="tt-controls">
+        <button class="tt-btn active" onclick="showTable(this,'and')">∧ AND</button>
+        <button class="tt-btn" onclick="showTable(this,'or')">∨ OR</button>
+        <button class="tt-btn" onclick="showTable(this,'xor')">⊕ XOR</button>
+        <button class="tt-btn" onclick="showTable(this,'impl')">→ Implication</button>
+        <button class="tt-btn" onclick="showTable(this,'bicond')">↔ Biconditional</button>
+      </div>
+      <div id="tt-display"></div>
+    </div>
+
+    <!-- Tips -->
+    <div class="card" style="border-color:rgba(192,132,252,0.3);">
+      <p class="card-label" style="color:#c084fc;">Exam Tips</p>
+      <p style="margin-bottom:8px;">• n variables = <strong>2ⁿ rows</strong>. Always.</p>
+      <p style="margin-bottom:8px;">• Use a pattern for filling: alternate T/F every 1 row for last var, every 2 for second-to-last, etc.</p>
+      <p style="margin-bottom:8px;">• Implication is the trickiest — remember: <em>only False when hypothesis is T and conclusion is F.</em></p>
+      <p>• To prove equivalence: build both columns, check they're identical.</p>
+    </div>
+
+  </section>
+
+</main>
+
+<script>
+// Scroll animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+// Interactive truth table
+const tables = {
+  and: {
+    headers: ['p', 'q', 'p ∧ q'],
+    rows: [['T','T','T'],['T','F','F'],['F','T','F'],['F','F','F']]
+  },
+  or: {
+    headers: ['p', 'q', 'p ∨ q'],
+    rows: [['T','T','T'],['T','F','T'],['F','T','T'],['F','F','F']]
+  },
+  xor: {
+    headers: ['p', 'q', 'p ⊕ q'],
+    rows: [['T','T','F'],['T','F','T'],['F','T','T'],['F','F','F']]
+  },
+  impl: {
+    headers: ['p', 'q', 'p → q'],
+    rows: [['T','T','T'],['T','F','F'],['F','T','T'],['F','F','T']]
+  },
+  bicond: {
+    headers: ['p', 'q', 'p ↔ q'],
+    rows: [['T','T','T'],['T','F','F'],['F','T','F'],['F','F','T']]
+  }
+};
+
+function showTable(btn, key) {
+  document.querySelectorAll('.tt-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const data = tables[key];
+  let html = '<div class="tt-wrap"><table><thead><tr>';
+  data.headers.forEach(h => html += `<th>${h}</th>`);
+  html += '</tr></thead><tbody>';
+  data.rows.forEach(row => {
+    html += '<tr>';
+    row.forEach((cell, i) => {
+      const isResult = i === row.length - 1;
+      const cls = isResult ? 'result ' + (cell === 'T' ? 't' : 'f') : (cell === 'T' ? 't' : 'f');
+      html += `<td class="${cls}">${cell}</td>`;
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+  document.getElementById('tt-display').innerHTML = html;
+}
+
+showTable(document.querySelector('.tt-btn'), 'and');
+</script>
+
+</body>
+</html>
