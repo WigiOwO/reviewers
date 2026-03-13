@@ -11,7 +11,7 @@
 <body>
 
 <header class="topbar">
-  <div class="logo" onclick="goHome()">Dis<span>Math</span></div>
+  <div style="display:flex;align-items:center;gap:16px;"><a href="../index.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">&larr; Hub</a><div class="logo" onclick="goHome()">Dis<span>Math</span></div></div>
   <div class="main-tabs">
     <button class="main-tab active" onclick="switchMain('topics', this)">Topics</button>
     <button class="main-tab" onclick="switchMain('quiz', this)">Quiz</button>

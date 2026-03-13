@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Physics Reviewer</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:16px;">
+    <a href="../index.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s;"
+       onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">&larr; Hub</a>
+    <div class="logo" onclick="goHome()">Phy<span>sics</span></div>
+  </div>
+  <div class="main-tabs">
+    <button class="main-tab active" onclick="switchMain('topics', this)">Topics</button>
+    <button class="main-tab" onclick="switchMain('quiz', this)">Quiz</button>
+  </div>
+</header>
+
+<!-- TOPICS VIEW -->
+<div class="view active" id="view-topics">
+  <div id="topics-home" class="topics-home">
+    <div class="home-header">
+      <div class="home-label">Physics &middot; Reviewer</div>
+      <h1 class="home-title">Pick a <em>topic</em><br>to study.</h1>
+      <p class="home-sub">6 topics &middot; examples included &middot; quiz available</p>
+    </div>
+    <div class="topic-grid">
+      <div class="topic-card" style="--card-color:var(--cyan)" onclick="openTopic('measurements')">
+        <div class="card-num">01</div><span class="card-icon">📏</span>
+        <div class="card-title">Measurements &amp; Instruments</div>
+        <div class="card-desc">Metric vs English, least count, Vernier caliper, micrometer &mdash; and measurement errors.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--green)" onclick="openTopic('conversion')">
+        <div class="card-num">02</div><span class="card-icon">⇄</span>
+        <div class="card-title">Unit Conversion</div>
+        <div class="card-desc">Conversion factor method, chain conversion, cubic units, metric prefixes.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--yellow)" onclick="openTopic('vectors')">
+        <div class="card-num">03</div><span class="card-icon">→</span>
+        <div class="card-title">Vectors &amp; Vector Addition</div>
+        <div class="card-desc">Scalar vs vector, resultant, parallelogram, polygon, and component method.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--pink)" onclick="openTopic('uam')">
+        <div class="card-num">04</div><span class="card-icon">⚡</span>
+        <div class="card-title">Uniformly Accelerated Motion</div>
+        <div class="card-desc">The 5 kinematic equations, speed vs velocity, relative velocity &mdash; constant acceleration.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--purple)" onclick="openTopic('freefall')">
+        <div class="card-num">05</div><span class="card-icon">↓</span>
+        <div class="card-title">Free Falling Bodies</div>
+        <div class="card-desc">Motion under gravity alone &mdash; v = gt, h = &frac12;gt&sup2;, and all free fall formulas.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--orange)" onclick="openTopic('projectile')">
+        <div class="card-num">06</div><span class="card-icon">⌒</span>
+        <div class="card-title">Projectile Motion</div>
+        <div class="card-desc">Horizontal and angled launch, independent axes, range, max height, and special cases.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+    </div>
+  </div>
+  <div id="topic-panels"></div>
+</div>
+
+<!-- QUIZ VIEW -->
+<div class="view" id="view-quiz">
+  <div id="quiz-home" class="quiz-home">
+    <div class="home-header">
+      <div class="home-label">Quiz &middot; Pick a topic</div>
+      <h1 class="home-title">Test your<br><em>knowledge.</em></h1>
+      <p class="home-sub">10 questions per topic &middot; Multiple choice &middot; Instant feedback</p>
+    </div>
+    <div class="topic-grid">
+      <div class="topic-card" style="--card-color:var(--cyan)" onclick="openQuiz('measurements')">
+        <div class="card-num">01</div><span class="card-icon">📏</span>
+        <div class="card-title">Measurements &amp; Instruments</div>
+        <div class="card-desc">Least count, Vernier, micrometer, error types.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--green)" onclick="openQuiz('conversion')">
+        <div class="card-num">02</div><span class="card-icon">⇄</span>
+        <div class="card-title">Unit Conversion</div>
+        <div class="card-desc">Factor method, chain conversion, metric prefixes.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--yellow)" onclick="openQuiz('vectors')">
+        <div class="card-num">03</div><span class="card-icon">→</span>
+        <div class="card-title">Vectors &amp; Vector Addition</div>
+        <div class="card-desc">Components, resultant, direction, methods.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--pink)" onclick="openQuiz('uam')">
+        <div class="card-num">04</div><span class="card-icon">⚡</span>
+        <div class="card-title">Uniformly Accelerated Motion</div>
+        <div class="card-desc">5 kinematic equations, velocity, acceleration.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--purple)" onclick="openQuiz('freefall')">
+        <div class="card-num">05</div><span class="card-icon">↓</span>
+        <div class="card-title">Free Falling Bodies</div>
+        <div class="card-desc">Free fall formulas, g = 9.8 m/s², drop problems.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+      <div class="topic-card" style="--card-color:var(--orange)" onclick="openQuiz('projectile')">
+        <div class="card-num">06</div><span class="card-icon">⌒</span>
+        <div class="card-title">Projectile Motion</div>
+        <div class="card-desc">Horizontal launch, angled launch, range, height.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="quiz-detail" class="quiz-home" style="display:none;">
+    <button class="back-btn" onclick="closeQuiz()">&larr; Back to Quiz Topics</button>
+    <div id="quiz-header" style="margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);"></div>
+    <div id="quiz-progress-wrap" style="margin-bottom:28px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span id="quiz-progress-label" style="font-size:11px;color:var(--muted);letter-spacing:0.1em;"></span>
+        <span id="quiz-score-label" style="font-size:11px;color:var(--muted);letter-spacing:0.1em;"></span>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:99px;height:4px;overflow:hidden;">
+        <div id="quiz-progress-bar" style="height:100%;background:var(--cyan);border-radius:99px;transition:width 0.3s ease;width:0%;"></div>
+      </div>
+    </div>
+    <div id="quiz-question-wrap"></div>
+    <div id="quiz-results" style="display:none;"></div>
+  </div>
+</div>
+
+<script src="topics.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
