@@ -217,26 +217,192 @@ const topicPanels = {
         </div>
       </div>
       <div class="def-block">
-        <p><strong>Vector sum ≠ Algebraic sum.</strong> Two forces of 3 N and 4 N don't always give 7 N. Depending on the angle, the result can be anywhere from 1 N (opposite) to 7 N (same direction).</p>
+        <p><strong>Vector sum &ne; Algebraic sum.</strong> Two forces of 3 N and 4 N don't always give 7 N. Depending on the angle, the result can be anywhere from 1 N (opposite) to 7 N (same direction).</p>
       </div>
 
-      <h3 class="section-title">Methods of Vector Addition</h3>
-      <div class="op-grid">
-        <div class="op-card">
-          <div class="op-name" style="color:var(--cyan)">A. Parallelogram Method</div>
-          <div class="op-desc">Graphical. Used for exactly <strong>2 vectors</strong>. Draw both from same point, complete the parallelogram — the diagonal is the resultant. Limitation: only 2 vectors at a time; relies on drawing accuracy.</div>
-        </div>
-        <div class="op-card">
-          <div class="op-name" style="color:var(--green)">B. Polygon / Head-to-Tail</div>
-          <div class="op-desc">Graphical. Works for <strong>2 or more vectors</strong>. Draw each vector tip-to-tail. The resultant goes from the tail of the first to the tip of the last. Order doesn't affect the result.</div>
-        </div>
-        <div class="op-card">
-          <div class="op-name" style="color:var(--yellow)">C. Component Method</div>
-          <div class="op-desc">Analytical. Works for any number of vectors. <strong>Most accurate</strong> — no drawing needed. Break each vector into x and y components, sum them, use Pythagorean theorem.</div>
+      <h3 class="section-title">Method A &mdash; Parallelogram Method</h3>
+      <div class="def-block">
+        <p>Graphical method for exactly <strong>2 vectors</strong>. Both vectors are drawn from the <em>same starting point</em>. Lines parallel to each vector are drawn from the tip of the other, forming a parallelogram. The diagonal from the origin is the resultant <strong>R</strong>.</p>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">Sketch &mdash; A = 40 N at 0°, B = 30 N at 90°</div>
+        <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;display:block;margin:0 auto;">
+          <defs>
+            <marker id="arr-a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#00d4ff"/>
+            </marker>
+            <marker id="arr-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#4dff9e"/>
+            </marker>
+            <marker id="arr-r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#f5c842"/>
+            </marker>
+            <marker id="arr-dash" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#25253a"/>
+            </marker>
+          </defs>
+          <!-- Origin dot -->
+          <circle cx="60" cy="190" r="4" fill="#6666a0"/>
+          <!-- Vector A: horizontal, 40N → 160px -->
+          <line x1="60" y1="190" x2="218" y2="190" stroke="#00d4ff" stroke-width="2.5" marker-end="url(#arr-a)"/>
+          <text x="130" y="208" fill="#00d4ff" font-family="IBM Plex Mono,monospace" font-size="12">A = 40 N</text>
+          <!-- Vector B: vertical, 30N → 120px up -->
+          <line x1="60" y1="190" x2="60" y2="72" stroke="#4dff9e" stroke-width="2.5" marker-end="url(#arr-b)"/>
+          <text x="4" y="135" fill="#4dff9e" font-family="IBM Plex Mono,monospace" font-size="12">B = 30 N</text>
+          <!-- Dashed lines to complete parallelogram -->
+          <line x1="220" y1="190" x2="220" y2="72" stroke="#25253a" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr-dash)"/>
+          <line x1="60" y1="70" x2="218" y2="70" stroke="#25253a" stroke-width="1.5" stroke-dasharray="5,4" marker-end="url(#arr-dash)"/>
+          <!-- Resultant diagonal -->
+          <line x1="60" y1="190" x2="214" y2="76" stroke="#f5c842" stroke-width="2.5" stroke-dasharray="0" marker-end="url(#arr-r)"/>
+          <text x="148" y="118" fill="#f5c842" font-family="IBM Plex Mono,monospace" font-size="12">R = 50 N</text>
+          <!-- Angle arc -->
+          <path d="M 100,190 A 40,40 0 0,0 72,158" stroke="#f5c842" stroke-width="1.5" fill="none"/>
+          <text x="106" y="168" fill="#f5c842" font-family="IBM Plex Mono,monospace" font-size="11">36.87°</text>
+          <!-- Origin label -->
+          <text x="38" y="210" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">O</text>
+          <!-- Corner labels -->
+          <text x="224" y="208" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">C</text>
+          <text x="224" y="68" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">D</text>
+          <text x="38" y="68" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">B</text>
+        </svg>
+        <div style="margin-top:16px;font-size:11px;color:var(--muted);line-height:1.8;">
+          <span style="color:var(--cyan)">&#9644; A</span> and <span style="color:var(--green)">&#9644; B</span> drawn from origin O &nbsp;&nbsp;
+          <span style="color:#25253a;text-decoration:underline;text-decoration-style:dashed;">- - -</span> dashed = ghost sides of parallelogram &nbsp;&nbsp;
+          <span style="color:var(--yellow)">&#9644; R</span> = diagonal = resultant
         </div>
       </div>
 
-      <h3 class="section-title">Component Method Formulas</h3>
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--cyan)">Steps</div>
+        <p>
+          1. Draw A and B from the same point O, to scale, at the correct angle.<br>
+          2. From the tip of A, draw a line parallel to B.<br>
+          3. From the tip of B, draw a line parallel to A.<br>
+          4. Where those lines meet = point D. Draw diagonal from O to D.<br>
+          5. Measure the diagonal length (apply scale) and its angle = <strong>R</strong>.
+        </p>
+      </div>
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--pink)">Limitations</div>
+        <p>Only adds <strong>2 vectors at a time</strong>. Accuracy depends entirely on how precisely you draw — small errors in the sketch = wrong result.</p>
+      </div>
+
+      <h3 class="section-title">Method B &mdash; Polygon / Head-to-Tail Method</h3>
+      <div class="def-block">
+        <p>Graphical method for <strong>2 or more vectors</strong>. Each vector is drawn starting from the tip (head) of the previous one. The resultant goes from the tail of the first vector to the head of the last. Order does not affect the resultant.</p>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">Sketch &mdash; F1 = 40 N East, F2 = 30 N North, F3 = 20 N West</div>
+        <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;display:block;margin:0 auto;">
+          <defs>
+            <marker id="p-arr-1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#00d4ff"/>
+            </marker>
+            <marker id="p-arr-2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#4dff9e"/>
+            </marker>
+            <marker id="p-arr-3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#ff4d8d"/>
+            </marker>
+            <marker id="p-arr-r" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#f5c842"/>
+            </marker>
+          </defs>
+          <!-- Start dot -->
+          <circle cx="80" cy="210" r="4" fill="#6666a0"/>
+          <text x="60" y="228" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">Start</text>
+          <!-- F1: East 40N = 140px right -->
+          <line x1="80" y1="210" x2="216" y2="210" stroke="#00d4ff" stroke-width="2.5" marker-end="url(#p-arr-1)"/>
+          <text x="130" y="228" fill="#00d4ff" font-family="IBM Plex Mono,monospace" font-size="11">F1 40N →</text>
+          <!-- F2: North 30N = 105px up, from tip of F1 -->
+          <line x1="220" y1="210" x2="220" y2="107" stroke="#4dff9e" stroke-width="2.5" marker-end="url(#p-arr-2)"/>
+          <text x="228" y="162" fill="#4dff9e" font-family="IBM Plex Mono,monospace" font-size="11">F2 30N ↑</text>
+          <!-- F3: West 20N = 70px left, from tip of F2 -->
+          <line x1="220" y1="105" x2="152" y2="105" stroke="#ff4d8d" stroke-width="2.5" marker-end="url(#p-arr-3)"/>
+          <text x="162" y="94" fill="#ff4d8d" font-family="IBM Plex Mono,monospace" font-size="11">F3 20N ←</text>
+          <!-- End dot -->
+          <circle cx="150" cy="105" r="4" fill="#6666a0"/>
+          <text x="100" y="94" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">End</text>
+          <!-- Resultant: Start to End -->
+          <line x1="80" y1="210" x2="144" y2="111" stroke="#f5c842" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#p-arr-r)"/>
+          <text x="68" y="158" fill="#f5c842" font-family="IBM Plex Mono,monospace" font-size="12">R</text>
+          <!-- Angle hint -->
+          <path d="M 112,210 A 32,32 0 0,0 96,180" stroke="#f5c842" stroke-width="1.2" fill="none"/>
+          <text x="116" y="194" fill="#f5c842" font-family="IBM Plex Mono,monospace" font-size="10">&theta;</text>
+        </svg>
+        <div style="margin-top:16px;font-size:11px;color:var(--muted);line-height:1.8;">
+          Each vector starts at the <em>head</em> of the previous one &nbsp;&nbsp;
+          <span style="color:var(--yellow)">- - - R</span> = drawn from the very first tail to the very last head
+        </div>
+      </div>
+
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--green)">Steps</div>
+        <p>
+          1. Draw F1 to scale from the starting point.<br>
+          2. Draw F2 starting exactly from the tip of F1.<br>
+          3. Draw F3 starting exactly from the tip of F2.<br>
+          4. Draw R from the tail of F1 to the tip of F3.<br>
+          5. Measure R's length and angle.
+        </p>
+      </div>
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--pink)">Note</div>
+        <p>You can arrange the vectors in any order (F1, F3, F2 etc.) — the resultant R will be the same. The polygon method's weakness is still drawing accuracy.</p>
+      </div>
+
+      <h3 class="section-title">Method C &mdash; Component Method (Analytical)</h3>
+      <div class="def-block">
+        <p>No drawing required. Works for any number of vectors. Break each vector into x and y components, sum them separately, then compute R using the Pythagorean theorem. Most precise method.</p>
+      </div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:20px;">
+        <div style="font-size:10px;color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">Sketch &mdash; Breaking a vector into components</div>
+        <svg viewBox="0 0 380 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto;">
+          <defs>
+            <marker id="c-arr-v" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#a78bfa"/>
+            </marker>
+            <marker id="c-arr-x" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#00d4ff"/>
+            </marker>
+            <marker id="c-arr-y" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#4dff9e"/>
+            </marker>
+          </defs>
+          <!-- Axes -->
+          <line x1="60" y1="190" x2="320" y2="190" stroke="#25253a" stroke-width="1.5"/>
+          <line x1="60" y1="190" x2="60" y2="30" stroke="#25253a" stroke-width="1.5"/>
+          <text x="322" y="194" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">x</text>
+          <text x="54" y="26" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">y</text>
+          <!-- Origin -->
+          <circle cx="60" cy="190" r="3" fill="#6666a0"/>
+          <text x="42" y="208" fill="#6666a0" font-family="IBM Plex Mono,monospace" font-size="11">O</text>
+          <!-- Vector V at ~53° -->
+          <line x1="60" y1="190" x2="234" y2="76" stroke="#a78bfa" stroke-width="2.5" marker-end="url(#c-arr-v)"/>
+          <text x="155" y="118" fill="#a78bfa" font-family="IBM Plex Mono,monospace" font-size="13">V</text>
+          <!-- Vx: horizontal component -->
+          <line x1="60" y1="190" x2="232" y2="190" stroke="#00d4ff" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#c-arr-x)"/>
+          <text x="126" y="208" fill="#00d4ff" font-family="IBM Plex Mono,monospace" font-size="12">Vx = V cos&theta;</text>
+          <!-- Vy: vertical component -->
+          <line x1="235" y1="190" x2="235" y2="78" stroke="#4dff9e" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#c-arr-y)"/>
+          <text x="242" y="138" fill="#4dff9e" font-family="IBM Plex Mono,monospace" font-size="12">Vy = V sin&theta;</text>
+          <!-- Right angle box -->
+          <rect x="222" y="177" width="13" height="13" fill="none" stroke="#6666a0" stroke-width="1"/>
+          <!-- Angle arc -->
+          <path d="M 104,190 A 44,44 0 0,0 80,152" stroke="#a78bfa" stroke-width="1.5" fill="none"/>
+          <text x="108" y="172" fill="#a78bfa" font-family="IBM Plex Mono,monospace" font-size="12">&theta;</text>
+        </svg>
+        <div style="margin-top:16px;font-size:11px;color:var(--muted);line-height:1.8;">
+          <span style="color:var(--purple)">&#9644; V</span> = original vector &nbsp;&nbsp;
+          <span style="color:var(--cyan)">- - Vx</span> = horizontal component &nbsp;&nbsp;
+          <span style="color:var(--green)">- - Vy</span> = vertical component &nbsp;&nbsp;
+          &#9633; = right angle
+        </div>
+      </div>
+
       <div class="formula-block" style="--accent-color:var(--yellow)">
         V&#x2093; = V cos&theta; &nbsp;&nbsp;&nbsp; V&#x1D67; = V sin&theta;<br><br>
         &Sigma;V&#x2093; = V&#8321;&#x2093; + V&#8322;&#x2093; + V&#8323;&#x2093; + &hellip;<br>
@@ -272,6 +438,18 @@ const topicPanels = {
           &theta; = arctan(40/30) = <strong>53.13°</strong><br>
           Both + &rarr; Quadrant I &rarr; <strong>53.13° North of East</strong>
         </p>
+      </div>
+
+      <h3 class="section-title">When to Use Each Method</h3>
+      <div class="tt-wrap">
+        <table>
+          <thead><tr><th>Method</th><th>Best For</th><th>Weakness</th></tr></thead>
+          <tbody>
+            <tr><td class="tv">Parallelogram</td><td>Quick graphical, 2 vectors</td><td class="fv">Only 2 at a time; drawing errors</td></tr>
+            <tr><td class="rv">Polygon</td><td>Multiple vectors, graphical</td><td class="fv">Still relies on drawing accuracy</td></tr>
+            <tr><td style="color:var(--yellow)">Component</td><td>Any number; maximum precision</td><td class="fv">More calculation steps</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>`,
 
