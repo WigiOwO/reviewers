@@ -1,118 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CPH101L — Computer Hardware Fundamentals</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CPH101L Reviewer</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="noise"></div>
 
-  <header>
-    <div class="header-inner">
-      <a href="../index.html" class="back-link">← Hub</a>
-      <div class="subject-tag">CPH101L</div>
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:16px;">
+    <a href="../index.html" style="font-size:11px;color:var(--muted);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s;"
+       onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">&larr; Hub</a>
+    <div class="logo" onclick="goHome()">CPH<span>101L</span></div>
+  </div>
+  <div class="main-tabs">
+    <button class="main-tab active" onclick="switchMain('topics', this)">Topics</button>
+    <button class="main-tab" onclick="switchMain('quiz', this)">Quiz</button>
+  </div>
+</header>
+
+<!-- TOPICS VIEW -->
+<div class="view active" id="view-topics">
+  <div id="topics-home" class="topics-home">
+    <div class="home-header">
+      <div class="home-label">CPH101L &middot; Reviewer</div>
+      <h1 class="home-title">Pick a <em>module</em><br>to study.</h1>
+      <p class="home-sub">3 modules &middot; 8 topics &middot; examples included &middot; quiz available</p>
     </div>
-    <h1 class="subject-title">Computer Hardware<br /><em>Fundamentals</em></h1>
-    <p class="subject-sub">Select a module to start reviewing.</p>
-  </header>
+    <div class="topic-grid">
 
-  <main id="app">
-    <!-- Home: topic cards -->
-    <section id="home-view">
-      <div class="topic-grid" id="topic-grid"></div>
-    </section>
+      <div class="topic-card" style="--card-color:var(--cyan)" onclick="openTopic('intro')">
+        <div class="card-num">01</div>
+        <span class="card-icon">🖥️</span>
+        <div class="card-title">Introduction</div>
+        <div class="card-desc">PC timeline, system components, case functions &amp; form factors.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
 
-    <!-- Topic detail view -->
-    <section id="topic-view" class="hidden">
-      <button class="btn-back" id="back-btn">← Back to Topics</button>
-      <div id="topic-content"></div>
-      <button class="btn-quiz" id="start-quiz-btn">Take Quiz →</button>
-    </section>
+      <div class="topic-card" style="--card-color:var(--pink)" onclick="openTopic('motherboard')">
+        <div class="card-num">02</div>
+        <span class="card-icon">🔌</span>
+        <div class="card-title">The Motherboard</div>
+        <div class="card-desc">Form factors, chipsets, buses, BIOS &amp; setup menus.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
 
-    <!-- Quiz view -->
-    <section id="quiz-view" class="hidden">
-      <button class="btn-back" id="quiz-back-btn">← Back to Topic</button>
-      <div id="quiz-container"></div>
-    </section>
-  </main>
+      <div class="topic-card" style="--card-color:var(--orange)" onclick="openTopic('microprocessor')">
+        <div class="card-num">03</div>
+        <span class="card-icon">⚙️</span>
+        <div class="card-title">The Microprocessor</div>
+        <div class="card-desc">CPU components, characteristics, instruction sets &amp; processor types.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
 
-  <script src="topics.js"></script>
-  <script src="quiz.js"></script>
-  <script>
-    let currentTopic = null;
+    </div>
+  </div>
+  <div id="topic-panels"></div>
+</div>
 
-    const homeView   = document.getElementById('home-view');
-    const topicView  = document.getElementById('topic-view');
-    const quizView   = document.getElementById('quiz-view');
-    const grid       = document.getElementById('topic-grid');
+<!-- QUIZ VIEW -->
+<div class="view" id="view-quiz">
+  <div id="quiz-home" class="quiz-home">
+    <div class="home-header">
+      <div class="home-label">Quiz &middot; Pick a module</div>
+      <h1 class="home-title">Test your<br><em>knowledge.</em></h1>
+      <p class="home-sub">10 questions per module &middot; Multiple choice &middot; Instant feedback</p>
+    </div>
+    <div class="topic-grid">
 
-    const ACCENT_COLORS = ['cyan', 'pink', 'yellow', 'green', 'purple', 'orange'];
+      <div class="topic-card" style="--card-color:var(--cyan)" onclick="openQuiz('intro')">
+        <div class="card-num">01</div>
+        <span class="card-icon">🖥️</span>
+        <div class="card-title">Introduction</div>
+        <div class="card-desc">PC timeline, components, case types &amp; form factors.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
 
-    function showHome() {
-      homeView.classList.remove('hidden');
-      topicView.classList.add('hidden');
-      quizView.classList.add('hidden');
-    }
+      <div class="topic-card" style="--card-color:var(--pink)" onclick="openQuiz('motherboard')">
+        <div class="card-num">02</div>
+        <span class="card-icon">🔌</span>
+        <div class="card-title">The Motherboard</div>
+        <div class="card-desc">Form factors, chipsets, buses, BIOS functions.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
 
-    function showTopic(slug) {
-      currentTopic = TOPICS.find(t => t.slug === slug);
-      if (!currentTopic) return;
-      homeView.classList.add('hidden');
-      quizView.classList.add('hidden');
-      topicView.classList.remove('hidden');
-      document.getElementById('topic-content').innerHTML = renderTopic(currentTopic);
-      topicView.scrollTop = 0;
-      window.scrollTo(0, 0);
+      <div class="topic-card" style="--card-color:var(--orange)" onclick="openQuiz('microprocessor')">
+        <div class="card-num">03</div>
+        <span class="card-icon">⚙️</span>
+        <div class="card-title">The Microprocessor</div>
+        <div class="card-desc">CPU parts, speed, cache, CISC vs RISC, processor lineups.</div>
+        <span class="card-arrow">&rarr;</span>
+      </div>
 
-      // Re-render MathJax if present
-      if (window.MathJax) MathJax.typesetPromise();
-    }
+    </div>
+  </div>
 
-    function showQuiz(slug) {
-      currentTopic = TOPICS.find(t => t.slug === slug);
-      if (!currentTopic) return;
-      homeView.classList.add('hidden');
-      topicView.classList.add('hidden');
-      quizView.classList.remove('hidden');
-      renderQuiz(currentTopic);
-      window.scrollTo(0, 0);
-    }
+  <div id="quiz-detail" class="quiz-home" style="display:none;">
+    <button class="back-btn" onclick="closeQuiz()">&larr; Back to Quiz Topics</button>
+    <div id="quiz-header" style="margin-bottom:32px;padding-bottom:24px;border-bottom:1px solid var(--border);"></div>
+    <div id="quiz-progress-wrap" style="margin-bottom:28px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span id="quiz-progress-label" style="font-size:11px;color:var(--muted);letter-spacing:0.1em;"></span>
+        <span id="quiz-score-label" style="font-size:11px;color:var(--muted);letter-spacing:0.1em;"></span>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:99px;height:4px;overflow:hidden;">
+        <div id="quiz-progress-bar" style="height:100%;background:var(--cyan);border-radius:99px;transition:width 0.3s ease;width:0%;"></div>
+      </div>
+    </div>
+    <div id="quiz-question-wrap"></div>
+    <div id="quiz-results" style="display:none;"></div>
+  </div>
+</div>
 
-    // Build cards
-    TOPICS.forEach((topic, i) => {
-      const color = ACCENT_COLORS[i % ACCENT_COLORS.length];
-      const card = document.createElement('div');
-      card.className = `topic-card accent-${color}`;
-      card.innerHTML = `
-        <div class="card-module">${topic.module}</div>
-        <div class="card-title">${topic.title}</div>
-        <div class="card-desc">${topic.description}</div>
-        <div class="card-footer">
-          <button class="btn-review" data-slug="${topic.slug}">Review</button>
-          <button class="btn-quiz-sm" data-slug="${topic.slug}">Quiz</button>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-
-    // Events
-    grid.addEventListener('click', e => {
-      const slug = e.target.dataset.slug;
-      if (!slug) return;
-      if (e.target.classList.contains('btn-review')) showTopic(slug);
-      if (e.target.classList.contains('btn-quiz-sm')) showQuiz(slug);
-    });
-
-    document.getElementById('back-btn').addEventListener('click', showHome);
-    document.getElementById('quiz-back-btn').addEventListener('click', () => {
-      if (currentTopic) showTopic(currentTopic.slug);
-    });
-    document.getElementById('start-quiz-btn').addEventListener('click', () => {
-      if (currentTopic) showQuiz(currentTopic.slug);
-    });
-  </script>
+<script src="topics.js"></script>
+<script src="quiz.js"></script>
 </body>
 </html>
