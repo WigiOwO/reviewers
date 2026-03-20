@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPH101L — Computer Hardware Fundamentals</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Fraunces:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="noise"></div>
+
+  <header>
+    <div class="header-inner">
+      <a href="../index.html" class="back-link">← Hub</a>
+      <div class="subject-tag">CPH101L</div>
+    </div>
+    <h1 class="subject-title">Computer Hardware<br /><em>Fundamentals</em></h1>
+    <p class="subject-sub">Select a module to start reviewing.</p>
+  </header>
+
+  <main id="app">
+    <!-- Home: topic cards -->
+    <section id="home-view">
+      <div class="topic-grid" id="topic-grid"></div>
+    </section>
+
+    <!-- Topic detail view -->
+    <section id="topic-view" class="hidden">
+      <button class="btn-back" id="back-btn">← Back to Topics</button>
+      <div id="topic-content"></div>
+      <button class="btn-quiz" id="start-quiz-btn">Take Quiz →</button>
+    </section>
+
+    <!-- Quiz view -->
+    <section id="quiz-view" class="hidden">
+      <button class="btn-back" id="quiz-back-btn">← Back to Topic</button>
+      <div id="quiz-container"></div>
+    </section>
+  </main>
+
+  <script src="topics.js"></script>
+  <script src="quiz.js"></script>
+  <script>
+    let currentTopic = null;
+
+    const homeView   = document.getElementById('home-view');
+    const topicView  = document.getElementById('topic-view');
+    const quizView   = document.getElementById('quiz-view');
+    const grid       = document.getElementById('topic-grid');
+
+    const ACCENT_COLORS = ['cyan', 'pink', 'yellow', 'green', 'purple', 'orange'];
+
+    function showHome() {
+      homeView.classList.remove('hidden');
+      topicView.classList.add('hidden');
+      quizView.classList.add('hidden');
+    }
+
+    function showTopic(slug) {
+      currentTopic = TOPICS.find(t => t.slug === slug);
+      if (!currentTopic) return;
+      homeView.classList.add('hidden');
+      quizView.classList.add('hidden');
+      topicView.classList.remove('hidden');
+      document.getElementById('topic-content').innerHTML = renderTopic(currentTopic);
+      topicView.scrollTop = 0;
+      window.scrollTo(0, 0);
+
+      // Re-render MathJax if present
+      if (window.MathJax) MathJax.typesetPromise();
+    }
+
+    function showQuiz(slug) {
+      currentTopic = TOPICS.find(t => t.slug === slug);
+      if (!currentTopic) return;
+      homeView.classList.add('hidden');
+      topicView.classList.add('hidden');
+      quizView.classList.remove('hidden');
+      renderQuiz(currentTopic);
+      window.scrollTo(0, 0);
+    }
+
+    // Build cards
+    TOPICS.forEach((topic, i) => {
+      const color = ACCENT_COLORS[i % ACCENT_COLORS.length];
+      const card = document.createElement('div');
+      card.className = `topic-card accent-${color}`;
+      card.innerHTML = `
+        <div class="card-module">${topic.module}</div>
+        <div class="card-title">${topic.title}</div>
+        <div class="card-desc">${topic.description}</div>
+        <div class="card-footer">
+          <button class="btn-review" data-slug="${topic.slug}">Review</button>
+          <button class="btn-quiz-sm" data-slug="${topic.slug}">Quiz</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Events
+    grid.addEventListener('click', e => {
+      const slug = e.target.dataset.slug;
+      if (!slug) return;
+      if (e.target.classList.contains('btn-review')) showTopic(slug);
+      if (e.target.classList.contains('btn-quiz-sm')) showQuiz(slug);
+    });
+
+    document.getElementById('back-btn').addEventListener('click', showHome);
+    document.getElementById('quiz-back-btn').addEventListener('click', () => {
+      if (currentTopic) showTopic(currentTopic.slug);
+    });
+    document.getElementById('start-quiz-btn').addEventListener('click', () => {
+      if (currentTopic) showQuiz(currentTopic.slug);
+    });
+  </script>
+</body>
+</html>
