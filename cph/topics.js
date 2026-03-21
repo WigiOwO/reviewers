@@ -484,7 +484,105 @@ const topicPanels = {
       <div class="def-block">
         <p>An x86-64 microprocessor family based on the <strong>Zen microarchitecture</strong>. Lineup: Ryzen 3, Ryzen 5, Ryzen 7, Ryzen 9, and Ryzen Threadripper — with up to <strong>96 cores</strong>.</p>
       </div>
-    </div>`
+    </div>`,
+
+  'chipset-names': `
+    <div id="topic-chipset-names" class="topic-detail">
+      <button class="back-btn" onclick="closeTopic()">&#8592; Back to Topics</button>
+      <div class="detail-header">
+        <span class="detail-icon">🎯</span>
+        <div>
+          <div class="detail-num">PROF'S PICK</div>
+          <h2 class="detail-title" style="color:var(--yellow)">Chipset Naming Schemes</h2>
+        </div>
+      </div>
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--yellow)">What is a Chipset?</div>
+        <p>The <strong>chipset</strong> is a silicon controller on the motherboard that acts as the communications hub. It determines CPU compatibility, how many PCIe slots, USB ports, and SATA ports are available, and whether you can overclock your CPU or RAM.</p>
+      </div>
+
+      <h3 class="section-title first">Intel Chipset Naming — Letter + 3 Numbers (e.g. Z690)</h3>
+
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--yellow)">The Letter = Performance Tier</div>
+        <p>The letter tells you what the board can do in terms of overclocking and connectivity.</p>
+      </div>
+      <div class="tt-wrap">
+        <table>
+          <thead><tr><th>Letter</th><th>Tier</th><th>Key Features</th></tr></thead>
+          <tbody>
+            <tr><td class="tv">Z</td><td>Enthusiast</td><td>Only series with full CPU multiplier overclocking. Highest PCIe lane count.</td></tr>
+            <tr><td class="rv">B / H</td><td>Mainstream</td><td>No CPU overclocking. Higher numbers (B660/H670) usually allow RAM overclocking.</td></tr>
+            <tr><td class="tv">Q</td><td>Business</td><td>Intel vPro — remote management and extra security features.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--yellow)">The Numbers = Generation + Feature Level</div>
+        <p><strong>1st digit</strong> = generation. e.g. <strong>6</strong>90 = Alder Lake (12th Gen), <strong>5</strong>90 = Rocket Lake (11th Gen).<br><br>
+        <strong>2nd digit</strong> = feature density within that generation.<br>
+        Lower (e.g. H6<strong>1</strong>0) = entry-level: fewer PCIe lanes, fewer USB ports, no RAID, only 2 RAM slots.<br>
+        Higher (e.g. B6<strong>6</strong>0) = mid-range: 4 RAM slots, RAID support, faster USB.</p>
+      </div>
+
+      <h3 class="section-title">AMD Chipset Naming — Letter + 3 Numbers (e.g. X570)</h3>
+
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--yellow)">The Letter = Performance Tier</div>
+      </div>
+      <div class="tt-wrap">
+        <table>
+          <thead><tr><th>Letter</th><th>Tier</th><th>Key Features</th></tr></thead>
+          <tbody>
+            <tr><td class="tv">X</td><td>High-End</td><td>CPU overclocking + Multi-GPU (SLI &amp; Crossfire). Maximum SATA/USB.</td></tr>
+            <tr><td class="rv">B</td><td>Mainstream</td><td>CPU overclocking + Crossfire (usually no SLI). Great value.</td></tr>
+            <tr><td class="fv">A</td><td>Budget</td><td>Locked — no CPU overclocking. No multi-GPU support.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="def-block">
+        <div class="blk-label" style="color:var(--yellow)">The Numbers = Generation + Tier Suffix</div>
+        <p><strong>1st digit</strong> = CPU generation compatibility. e.g. <strong>5</strong>70 = Zen 3 (Ryzen 5000).<br><br>
+        <strong>Last two digits</strong> are currently fixed to tier — they don't indicate feature differences like Intel's do:<br>
+        X-series ends in <strong>70</strong> (X570) &nbsp;|&nbsp; B-series ends in <strong>50</strong> (B550) &nbsp;|&nbsp; A-series ends in <strong>20</strong> (A520)</p>
+      </div>
+
+      <h3 class="section-title">Intel vs AMD — Full Comparison</h3>
+      <div class="tt-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Intel Z</th><th>Intel B/H</th><th>AMD X</th><th>AMD B</th><th>AMD A</th></tr></thead>
+          <tbody>
+            <tr><td>CPU Overclocking</td><td class="tv">✅</td><td class="fv">❌</td><td class="tv">✅</td><td class="tv">✅</td><td class="fv">❌</td></tr>
+            <tr><td>RAM Overclocking</td><td class="tv">✅</td><td class="rv">⚠️ Partial</td><td class="tv">✅</td><td class="tv">✅</td><td class="fv">❌</td></tr>
+            <tr><td>Multi-GPU (SLI/CF)</td><td class="tv">✅</td><td class="fv">❌</td><td class="tv">✅</td><td class="rv">⚠️ CF Only</td><td class="fv">❌</td></tr>
+            <tr><td>Typical RAM Slots</td><td class="tv">4</td><td class="rv">2 or 4</td><td class="tv">4</td><td class="tv">4</td><td class="rv">2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="section-title">Quick Rules to Remember</h3>
+      <div class="op-grid">
+        <div class="op-card">
+          <div class="op-name" style="color:var(--yellow)">Want to Overclock?</div>
+          <div class="op-desc">Go <strong>Z</strong> for Intel or <strong>B / X</strong> for AMD. Those are the only tiers that allow CPU multiplier overclocking.</div>
+        </div>
+        <div class="op-card">
+          <div class="op-name" style="color:var(--cyan)">Budget / Office Build?</div>
+          <div class="op-desc">Look for <strong>H</strong> (Intel) or <strong>A</strong> (AMD). No overclocking, fewer ports, but cheaper.</div>
+        </div>
+        <div class="op-card">
+          <div class="op-name" style="color:var(--green)">Future Proofing?</div>
+          <div class="op-desc">Always check the <strong>first number</strong> to ensure it matches your CPU generation. A 500-series AMD board won't natively support Ryzen 7000.</div>
+        </div>
+        <div class="op-card">
+          <div class="op-name" style="color:var(--pink)">BIOS Updates</div>
+          <div class="op-desc">You can sometimes put a newer CPU on an older board — but only after a <strong>BIOS update</strong>. Applies to both Intel and AMD.</div>
+        </div>
+      </div>
+    </div>`,
+
 };
 
 // ════════════════════════════════════════

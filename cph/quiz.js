@@ -50,6 +50,22 @@ const quizData = {
       { q: "The maximum number of cores in AMD Ryzen Threadripper according to the module is:", opts: ["32", "64", "96", "128"], ans: 2, exp: "Ryzen Threadripper has up to 96 cores according to Module 03." },
       { q: "What does the Memory Unit (MU) do?", opts: ["Performs all arithmetic operations", "Manages data and instruction transfer between CPU and main memory", "Controls all CPU activity", "Regulates CPU voltage"], ans: 1, exp: "The MU manages data and instruction transfer between the CPU and main memory (RAM)." }
     ]
+  },
+
+  'chipset-names': {
+    title: 'Chipset Naming Schemes', icon: '🎯', color: 'var(--yellow)',
+    questions: [
+      { q: "Which Intel chipset letter is the ONLY one that supports full CPU multiplier overclocking?", opts: ["H", "B", "Z", "Q"], ans: 2, exp: "Z is the only Intel series that allows full CPU multiplier overclocking. H and B do not support it." },
+      { q: "What does the first digit in an Intel chipset number indicate?", opts: ["Feature density", "CPU generation", "Number of PCIe lanes", "Price tier"], ans: 1, exp: "The first digit indicates the generation. e.g. 6xx = Alder Lake (12th Gen), 5xx = Rocket Lake (11th Gen)." },
+      { q: "An Intel H610 chipset would have:", opts: ["Full overclocking and 4 RAM slots", "Entry-level features: fewer ports, no RAID, 2 RAM slots", "Business features like vPro", "The same features as Z690"], ans: 1, exp: "The '1' in H610 means entry-level — fewer PCIe lanes, fewer USB ports, no RAID support, and typically only 2 RAM slots." },
+      { q: "Which Intel chipset series is designed for business use with remote management features?", opts: ["Z", "H", "B", "Q"], ans: 3, exp: "The Q series features Intel vPro technology for remote management and extra security — aimed at business PCs." },
+      { q: "Which AMD chipset letter supports CPU overclocking AND Multi-GPU (SLI & Crossfire)?", opts: ["A", "B", "X", "Z"], ans: 2, exp: "AMD X is the high-end tier — supports both CPU overclocking and multi-GPU (SLI & Crossfire) with maximum SATA/USB." },
+      { q: "AMD's A-series chipset (e.g. A520) supports:", opts: ["CPU and RAM overclocking", "CPU overclocking only", "RAM overclocking only", "No overclocking at all"], ans: 3, exp: "AMD A-series is budget and fully locked — no CPU overclocking, no RAM overclocking, and no multi-GPU support." },
+      { q: "What does the first digit in an AMD chipset number indicate?", opts: ["Feature density", "Price tier", "CPU generation compatibility", "Number of USB ports"], ans: 2, exp: "The first digit indicates CPU generation compatibility. e.g. 5xx series is built for Zen 3 (Ryzen 5000)." },
+      { q: "AMD's B550 chipset supports which multi-GPU configuration?", opts: ["SLI and Crossfire", "Crossfire only, usually no SLI", "SLI only", "No multi-GPU at all"], ans: 1, exp: "AMD B-series supports Crossfire but usually not SLI. It's the mainstream tier — good value with overclocking support." },
+      { q: "You want to use a newer CPU on an older motherboard. What do you need to do first?", opts: ["Buy a new PSU", "Perform a BIOS update", "Replace the RAM", "Nothing — it works automatically"], ans: 1, exp: "A BIOS update is required to enable support for newer CPUs on older boards. This applies to both Intel and AMD platforms." },
+      { q: "What is the fixed suffix for AMD's X-series chipsets?", opts: ["20", "50", "70", "90"], ans: 2, exp: "AMD X-series ends in 70 (e.g. X570, X670). B-series ends in 50, A-series ends in 20." }
+    ]
   }
 };
 
